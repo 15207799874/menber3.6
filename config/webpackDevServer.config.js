@@ -78,6 +78,16 @@ module.exports = function(proxy, allowedHost) {
     },
     public: allowedHost,
     proxy,
+    // proxy:{
+	// 	'/app':{
+	// 		target:'http://www.etaoyao.com',
+	// 		changeOrigin: true,			
+	// 		secure: false,
+	// 	}
+	// },
+		
+	
+
     setup(app) {
       // This lets us open files from the runtime error overlay.
       app.use(errorOverlayMiddleware());

@@ -15,7 +15,7 @@ const pxtorem = require('postcss-pxtorem');
 
 const svgSpriteDirs = [
   require.resolve('antd-mobile').replace(/warn\.js$/, ''), // antd-mobile 内置svg
-  //path.resolve(__dirname, 'src/my-project-svg-foler'),  // 业务代码本地私有 svg 存放目录
+  path.resolve(__dirname, 'src/mySvg'),  // 业务代码本地私有 svg 存放目录
 ];
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -95,7 +95,8 @@ module.exports = {
       
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react-native': 'react-native-web',
+	  'react-native': 'react-native-web',
+	  'app': path.resolve(__dirname, '../src/'),
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -115,20 +116,20 @@ module.exports = {
 
       // First, run the linter.
       // It's important to do this before Babel processes the JS.
-      {
-        test: /\.(js|jsx)$/,
-        enforce: 'pre',
-        use: [
-          {
-            options: {
-              formatter: eslintFormatter,
+    //   {
+    //     test: /\.(js|jsx)$/,
+    //     enforce: 'pre',
+    //     use: [
+    //       {
+    //         options: {
+    //           formatter: eslintFormatter,
               
-            },
-            loader: require.resolve('eslint-loader'),
-          },
-        ],
-        include: paths.appSrc,
-      },
+    //         },
+    //         loader: require.resolve('eslint-loader'),
+    //       },
+    //     ],
+    //     include: paths.appSrc,
+    //   },
       // ** ADDING/UPDATING LOADERS **
       // The "file" loader handles all assets unless explicitly excluded.
       // The `exclude` list *must* be updated with every change to loader extensions.
@@ -142,14 +143,14 @@ module.exports = {
         exclude: [
           /\.html$/,
 		  /\.(js|jsx)$/,
-		  /\.less$/,
-		  /\.svg$/,
+		  /\.less$/,		 
           /\.css$/,
           /\.json$/,
           /\.bmp$/,
           /\.gif$/,
           /\.jpe?g$/,
-          /\.png$/,
+		  /\.png$/,		 
+		  require.resolve('antd-mobile').replace(/warn\.js$/, ''),
         ],
         loader: require.resolve('file-loader'),
         options: {
@@ -194,7 +195,9 @@ module.exports = {
           {
             loader: require.resolve('css-loader'),
             options: {
-              importLoaders: 1,
+				modules: true,
+				localIdentName: '[path][name]__[local]--[hash:base64:5]',
+				importLoaders: 1,
             },
           },
           {
@@ -243,7 +246,7 @@ module.exports = {
           {
             loader: require.resolve('less-loader'),
             options: {
-            //   modifyVars: { "@primary-color": "#1DA57A" },
+               modifyVars: { },
             },
           },
         ],
@@ -252,6 +255,7 @@ module.exports = {
 		test: /\.svg$/,
 		loader: 'svg-sprite-loader',
 		include: svgSpriteDirs,
+		// exclude: path.resolve(__dirname, 'src'),
 	}
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "file" loader exclusion list.
