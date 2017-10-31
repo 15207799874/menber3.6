@@ -5,6 +5,10 @@ export default function Home(state = {}, action = {}) {
 			return Object.assign(
 				{}, state, action.data
 			)
+		case types.Window_Resize:
+			return Object.assign(
+				{}, state, action.data
+			)
 		default:
 			return state;
 	}

@@ -1,0 +1,10 @@
+.up{
+	bottom: 20px;
+	opacity: 0.1;
+	transition:  bottom 0.5s,opacity 0.5s;
+}
+.down{
+	bottom: 0px;
+	opacity: 1;
+	transition:  bottom 0.5s,opacity 0.5s;
+}

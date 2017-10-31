@@ -9,17 +9,16 @@ import { Provider } from 'react-redux';
 import configureStore from './common/store/configure-store';
 import TabBarExample from './tabs/tabs';
 import registerServiceWorker from './registerServiceWorker';
+import AppContainer from './containers/AppContainer';
 import './index.css';
 
+const store = configureStore({Home:{innerWidth:window.innerWidth}});
+const routes = require('./routes/index').default(store)
 
-
-const store = configureStore();
-
-const Root = () => (
-	<Provider store={store}>
-		<TabBarExample />
-	</Provider>
+ReactDOM.render(
+	<AppContainer store={store} routes={routes} />,
+	document.getElementById('root')
 );
-
-ReactDOM.render(<Root />, document.getElementById('root'));
 registerServiceWorker();
+
+

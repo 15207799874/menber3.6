@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TabBar, Icon } from 'antd-mobile';
-import Home from '../home/home';
+import Home from '../routes/home/home';
 
 /* eslint global-require: 0 */
 
@@ -9,7 +9,7 @@ class TabBarExample extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'redTab',
+      selectedTab: 'blueTab',
       hidden: false,
     };
   }
@@ -40,22 +40,21 @@ class TabBarExample extends Component {
         hidden={this.state.hidden}
       >
         <TabBar.Item
-          title="生活"
-          key="生活"
+          title="首页"
+          key="首页"
           icon={<div style={{
-            width: '0.44rem',
-            height: '0.44rem',
+            width: '1rem',
+            height: '1rem',
             background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  0.42rem 0.42rem no-repeat' }}
           />
           }
           selectedIcon={<div style={{
-            width: '0.44rem',
-            height: '0.44rem',
+            width: '1rem',
+            height: '1rem',
             background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  0.42rem 0.42rem no-repeat' }}
           />
           }
-          selected={this.state.selectedTab === 'blueTab'}
-          badge={1}
+          selected={this.state.selectedTab === 'blueTab'}         
           onPress={() => {
             this.setState({
               selectedTab: 'blueTab',
@@ -66,11 +65,10 @@ class TabBarExample extends Component {
           <Home/>
         </TabBar.Item>
         <TabBar.Item
-          icon={<Icon type="koubei-o" size="md" />}
-          selectedIcon={<Icon type="koubei" size="md" />}
-          title="口碑"
-          key="口碑"
-          badge={'new'}
+          icon={<Icon type="koubei-o"  />}
+          selectedIcon={<Icon type="koubei"  />}
+          title="速购"
+          key="速购"        
           selected={this.state.selectedTab === 'redTab'}
           onPress={() => {
             this.setState({
@@ -84,21 +82,20 @@ class TabBarExample extends Component {
         <TabBar.Item
           icon={
             <div style={{
-              width: '0.44rem',
-              height: '0.44rem',
+              width: '1rem',
+              height: '1rem',
               background: 'url(https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg) center center /  0.42rem 0.42rem no-repeat' }}
             />
           }
           selectedIcon={
             <div style={{
-              width: '0.44rem',
-              height: '0.44rem',
+              width: '1rem',
+              height: '1rem',
               background: 'url(https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg) center center /  0.42rem 0.42rem no-repeat' }}
             />
           }
-          title="朋友"
-          key="朋友"
-          dot
+          title="进货单"
+          key="进货单"          
           selected={this.state.selectedTab === 'greenTab'}
           onPress={() => {
             this.setState({

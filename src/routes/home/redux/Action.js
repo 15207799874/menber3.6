@@ -18,3 +18,12 @@ export function getHome() {
 		});
 	}
 }
+export function resizeWindow() {
+	return (dispatch) => {
+		dispatch({
+			type:types.Window_Resize,
+			data:{innerWidth:window.innerWidth}
+		});
+		return window.innerWidth;
+	}
+}
