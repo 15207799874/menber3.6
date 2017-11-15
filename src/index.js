@@ -15,6 +15,9 @@ import './index.css';
 const store = configureStore({Home:{innerWidth:window.innerWidth}});
 const routes = require('./routes/index').default(store)
 
+
+
+
 ReactDOM.render(
 	<AppContainer store={store} routes={routes} />,
 	document.getElementById('root')

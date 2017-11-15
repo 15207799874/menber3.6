@@ -6,16 +6,14 @@ import _ from 'underscore';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as homeActions from './redux/Action';
-// import * as userActions from 'future/src/member/actions/Member';
-import Slider from 'react-slick';
+import * as userActions from '../login/redux/MemberAction';
+// import Slider from 'react-slick';
 import NoticeBanner from 'app/common/component/noticeBannar';
-import ScrollArea from 'react-scrollbar';
+// import ScrollArea from 'react-scrollbar';
 import HomeList from './List'
 
-const Item = List.Item;
-const Brief = Item.Brief;
 
-class Demo extends Component {
+class Home extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
@@ -50,14 +48,13 @@ class Demo extends Component {
 		});
 		new Fetch({
 			url: '/app/user/getUser.json',
-			method: "POST",
-			forbidToast: true,
+			method: "POST"			
 		}).dofetch().then((data) => {
-			//判断账户是否通过了审核，通过审核才算登录成功
-			// if (data.result.isApprove) {
-			// 	this.props.actions.setLogined(true);
-			// 	this.isLoginRender = true;
-			// }
+			// 判断账户是否通过了审核，通过审核才算登录成功
+			if (data.result.isApprove) {
+				this.props.actions.setLogined(true);
+				// this.isLoginRender = true;
+			}
 			// if (data.result.messageNum > 0) {
 			// 	this.setState({
 			// 		showMessageTip: true,
@@ -68,8 +65,7 @@ class Demo extends Component {
 		})		
 	}
 
-	fetchData(page,sucees){
-		console.log('>>>>>>>>>>>>>>>>>dfsfhdksfhsadfthis.appModuleId',this.appModuleId);
+	fetchData(page,sucees,error){		
 		new Fetch({
 			url: 'app/index/pageTabObjects.json',
 			data: {
@@ -80,7 +76,7 @@ class Demo extends Component {
 				sysOrgId: this.sysOrgId
 			}
 		}).dofetch().then((data) => {
-			sucees(data.result);
+			sucees(data.result,page * 10, data.totalCount);
 		}).catch((err) => { 
 			error && error();
 			console.log(err);
@@ -212,7 +208,7 @@ class Demo extends Component {
 		let items3 = right[dataIndex + 2] == undefined ? undefined : right[dataIndex + 2];
 		let items4 = right[dataIndex + 3] == undefined ? undefined : right[dataIndex + 3];
 		return (
-			<div style={{flex:1,...style.flexVer}}>
+			<div style={{flex:1,...style.flexVer,justifyContent:'sapce-between',height:imageArrViewHeight,border:'1px solid #eee'}}>
 				<div style={{ flex: 1,...style.flexHor }}>					
 					<img style={{width:fullwidth * 0.328125,height:imageArrViewHeight/2,borderTop:'1px solid #eee'}} src={items1 == undefined ? '' : items1.iconFileUrl} />
 					<img style={{width:fullwidth * 0.328125,height:imageArrViewHeight/2,borderTop:'1px solid #eee'}} src={items2 == undefined ? '' : items2.iconFileUrl} />
@@ -231,13 +227,11 @@ class Demo extends Component {
 		if (left != null) {
 			return left.map((item, index) => {
 				return (
-					<div style={{...style.flexHor,marginTop:20,height:this.props.homeData.innerWidth*0.6875,backgroundColor:'#fff',}} key={index}>
-						<div style={{border:'1px solid #eee'}}>
-							<img
-								style={{width:this.props.homeData.innerWidth * 0.34375,height:this.props.homeData.innerWidth*0.6875,}}
-								src={item.iconFileUrl}
-							/>
-						</div>
+					<div style={{...style.flexHor,marginTop:20,height:this.props.homeData.innerWidth*0.6875,backgroundColor:'#fff',}} key={index}>	
+						<img
+							style={{width:this.props.homeData.innerWidth * 0.34375,height:this.props.homeData.innerWidth*0.6875,border:'1px solid #eee'}}
+							src={item.iconFileUrl}
+						/>						
 						{this.renderRight(right, index)}
 					</div>
 				);
@@ -305,9 +299,9 @@ class Demo extends Component {
 	
   	render() {
 		return (
-			<div> 		
+			<div> 	 	
 				<div style={{position:"fixed",top:0,width:'100%',zIndex:100,}}>
-					<div style={{...style.flexHor, backgroundColor:"#fff",justifyContent:'space-between',height:90,paddingLeft:26,paddingRight:26}}>	
+					<div className='flexHor-center' style={{backgroundColor:"#fff",justifyContent:'space-between',height:90,paddingLeft:26,paddingRight:26}}>	
 						<span><i className="fa fa-th-list" style={{fontSize:36,color:"#34457d"}}></i></span>		
 						<span style={{display:"inline-block",width:"70%",height:60, backgroundColor:"#f5f5f5",borderRadius:30,...style.flexHor}}>
 							<span style={{color:"#333",margin:"auto",display:'flex',flexDirection:'row',alignItems:'center'}}><Icon key="0" type="search"/>搜索商品／品牌</span>					
@@ -335,16 +329,16 @@ class Demo extends Component {
 function mapStateToProps(state) {
 	return {
 		homeData: state.Home,
-		// isLogin: state.Member.isLogin
+		isLogin: state.Member.isLogin
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		actions: bindActionCreators({ ...homeActions }, dispatch)
+		actions: bindActionCreators({ ...homeActions,...userActions}, dispatch)
 	};
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Demo);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
 
 const style = {

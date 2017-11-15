@@ -6,87 +6,155 @@ import { ListView } from 'antd-mobile';
 
 
 class HomeList extends React.Component {
-  constructor(props) {
-    super(props);
-    const dataSource = new ListView.DataSource({   
-      rowHasChanged: (row1, row2) => row1 !== row2      
-    });
-    this.state = {
-      dataSource,
-      isLoading: true,
-	  height: document.documentElement.clientHeight * 3 / 4,	 
-	};
-	this.page = 1;
-  }
+	constructor(props) {
+		super(props);
+		const dataSource = new ListView.DataSource({   
+		rowHasChanged: (row1, row2) => row1 !== row2      
+		});
+		this.state = {
+		dataSource,
+		status:'wait',
+		isLoading: true,
+		isMyriad : false,
+		checkNetwork : true,
+		openCheckNetwork : this.props.openCheckNetwork,
+		height: document.documentElement.clientHeight * 3 / 4,	 
+		};
+		this.page = 0;
+	}
 
-  componentWillMount(){
-	 this.props.fetchData && this.props.fetchData(this.page,(result)=>{		
-		 console.log('>>>>>>',result);
-		this.setState({dataSource: this.state.dataSource.cloneWithRows(result)});
-	 });
+	static propTypes = {
+		fetchData: React.PropTypes.func.isRequired,	
+	}
 
-  }
+	componentWillMount(){
+		this.onRefresh();
 
-  componentDidMount() {
-   // you can scroll to the specified position
-    setTimeout(() => this.lv.scrollTo(0, 120), 800);	
-    const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;;
-    setTimeout(() => {     
-      this.setState({        
-        isLoading: false,
-        height: hei,
-      });
-    }, 600);
-  }
+	}
 
-  // If you use redux, the data maybe at props, you need use `componentWillReceiveProps`
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.dataSource !== this.props.dataSource) {
-  //     this.setState({
-  //       dataSource: this.state.dataSource.cloneWithRowsAndSections(nextProps.dataSource),
-  //     });
-  //   }
-  // }
+	getRows(sectionIdentitie){
+		if(sectionIdentitie != undefined){
+			return this.state.dataSource._dataBlob[sectionIdentitie];
+		}
+		let sections = this.state.dataSource.sectionIdentities;
+		if(sections != undefined && sections.length > 0){
+			return this.state.dataSource._dataBlob[sections[0]];
+		}
+		return null;
+	}
 
-  onEndReached = (event) => {
-    // load new data
-    // hasMore: from backend data, indicates whether it is the last page, here is false
-    if (this.state.isLoading && !this.state.hasMore) {
-      return;
-    }
-    console.log('reach end', event);
-    this.setState({ isLoading: true });
-    setTimeout(() => {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlobs, sectionIDs, rowIDs),
-        isLoading: false,
-      });
-    }, 1000);
-  }
+	setRows(rows){	
+		this.setState({
+			dataSource : this.state.dataSource.cloneWithRows(rows)
+		});
+	}
+	appendRows(rows){
+		var newRows = this.getRows().concat(rows);
+		this.setRows(newRows);
+	}
+
+	onRefresh() {
+		this.props.fetchData(this.page + 1, (rows, currCount, totalCount) => {
+			this.totalRowCount = currCount;
+			this.totalCount = totalCount;			
+			this.setState({
+				status : this.totalRowCount >= this.totalCount ? 'done' : 'wait',
+				isLoading : false
+			});
+			if(rows != null || rows != undefined){
+				if(this.page == 0){
+					if(rows.length==0){
+						this.setState({
+							isMyriad : true,						
+						});
+					} else {
+						this.setState({
+							isMyriad : false,						
+						});
+					}
+					this.setRows(rows);
+				}else{
+					this.appendRows(rows);
+				}
+			}
+		}, (err) => {
+			console.log("errInfo",err);
+			this.page--;
+			this.setState({
+				status : 'error',
+				isLoading : false,
+			});
+			
+		});
+	}
+
+	onLoadMore(){	
+		this.setState({isLoading : 'loading'});	
+		this.page++;
+		this.onRefresh();		
+	}
+
+	componentDidMount() {
+	
+		setTimeout(() => this.lv.scrollTo(0, 120), 800);	
+		// const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;;
+		setTimeout(() => {     
+		this.setState({        
+			isLoading: false,			
+		});
+		// console.log('>>>>',document.documentElement.clientHeight,ReactDOM.findDOMNode(this.lv).parentNode.offsetTop);
+		}, 600);
+	}
+
+	onEndReached = (event) => {   
+		console.log('reach end',this.state.isLoading,this.state.status == 'done');
+		if (this.state.isLoading || this.state.status == 'done') {
+			console.log('>>>>return');
+		return;
+		}
+		this.onLoadMore();
+	}
+	renderRow(rowData, sectionID, rowID, highlightRow) {
+		let price = rowData.product.price == null ? rowData.product.marketPrice : rowData.product.price;
+		let leftPrice = Number.parseFloat(price).toFixed(2).toString().split('.');
+	
+		return (
+			<div key={rowID} style={{...style.flexVer,justifyContent:'space-between', width:this.props.innerWidth/2-50,marginLeft:rowID%2 != 0 ? 98 : 0,display:'inline-block'}}>
+				<img  style={{width:this.props.innerWidth/2-80}} src={rowData.product.picUrl}/>    					
+				<div style={{height:185,...style.flexVer,justifyContent:'space-around',paddingLeft:30,alignItems:'flex-start'}}>
+					{
+					rowData.product.price == null ?
+						<div style={{ width: 158, height: 42, ...style.flexHor, border:'1px solid #8495a2',marginBottom:20,alignItems:'center',paddingLeft:10,paddingRight:10}}>
+							<img style={{ width: 26}} src={`${process.env.PUBLIC_URL}/003denglukejian@2x.png`}/>
+							<div style={{ width: 2, height: 26, backgroundColor: '#8495a2' }} />
+							<span style={{ fontSize: 22, color: '#8495a2' }}>登录可见</span>
+						</div>
+						: <span style={{ color: '#000', fontSize: 32, marginBottom:10 }}>￥{leftPrice[0]}.{leftPrice[1]}</span>
+					}
+					<span style={{ color: '#333', fontSize: 26,  }} >{rowData.text}</span>
+					<span style={{ color: '#333', fontSize: 26,  }} >{rowData.product.specPack}</span>
+				</div>					
+			
+			</div>
+		)
+	}
 
   render() {
-    const row = (rowData, sectionID, rowID) => {
-		console.log('>>>>>>>>>',rowData);
-      return (
-        <img key={rowID} style={{width:this.props.innerWidth/2-50,marginLeft:rowID%2 != 0 ? 98 : 0}} src={rowData.product.picUrl}/>        
-      );
-    };
-
     return (
       <ListView
         ref={el => this.lv = el}
         dataSource={this.state.dataSource}
         renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-          {this.state.isLoading ? 'Loading...' : 'Loaded'}
+          {this.state.status == 'wait' ? '上拉加载更多' : this.state.status == 'done' ? '已经没有跟多了' : this.state.isLoading ? '加载中' : '上拉加载更多'}
         </div>)}
         contentContainerStyle={{...style.flexHor,flexWrap:'wrap',marginTop:10}}
-        renderRow={row}        
+        renderRow={this.renderRow.bind(this)}        
         style={{
           height: this.state.height,
           overflow: 'auto',
         }}
         pageSize={4}
-        onScroll={() => { console.log('scroll'); }}
+        onScroll={() => {}}
         scrollRenderAheadDistance={500}
         onEndReached={this.onEndReached}
         onEndReachedThreshold={10}

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { TabBar, Icon } from 'antd-mobile';
 import Home from '../routes/home/home';
+import FastBuy from '../routes/fastBuy/fastBuy';
+import { connect } from 'react-redux';
+import { browserHistory } from 'react-router'
 
 /* eslint global-require: 0 */
 
@@ -32,6 +35,7 @@ class TabBarExample extends Component {
   }
 
   render() {
+	console.log('>>>>>>this.props.isLogin',this.props.isLogin);
     return (
       <TabBar
         unselectedTintColor="#949494"
@@ -42,15 +46,15 @@ class TabBarExample extends Component {
         <TabBar.Item
           title="首页"
           key="首页"
-          icon={<div style={{
-            width: '1rem',
-            height: '1rem',
+          icon={<div style={{		
+            width: '.5rem',
+            height: '.5rem',
             background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  0.42rem 0.42rem no-repeat' }}
           />
           }
           selectedIcon={<div style={{
-            width: '1rem',
-            height: '1rem',
+            width: '.5rem',
+            height: '.5rem',
             background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  0.42rem 0.42rem no-repeat' }}
           />
           }
@@ -71,26 +75,30 @@ class TabBarExample extends Component {
           key="速购"        
           selected={this.state.selectedTab === 'redTab'}
           onPress={() => {
-            this.setState({
-              selectedTab: 'redTab',
-            });
+			if(this.props.isLogin){
+				this.setState({
+				selectedTab: 'redTab',
+				});
+			}else{
+				browserHistory.push('/login')
+			}
           }}
           data-seed="logId1"
         >
-          {this.renderContent('口碑')}
+			<FastBuy></FastBuy>
         </TabBar.Item>
         <TabBar.Item
           icon={
             <div style={{
-              width: '1rem',
-              height: '1rem',
+              width: '.5rem',
+              height: '.5rem',
               background: 'url(https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg) center center /  0.42rem 0.42rem no-repeat' }}
             />
           }
           selectedIcon={
             <div style={{
-              width: '1rem',
-              height: '1rem',
+              width: '.5rem',
+              height: '.5rem',
               background: 'url(https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg) center center /  0.42rem 0.42rem no-repeat' }}
             />
           }
@@ -124,4 +132,11 @@ class TabBarExample extends Component {
   }
 }
 
-export default TabBarExample;
+function mapStateToProps(state) {
+	return {
+		isLogin: state.Member.isLogin,
+		userType: state.Member.userType,
+	};
+}
+
+export default connect(mapStateToProps)(TabBarExample);

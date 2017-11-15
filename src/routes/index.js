@@ -9,21 +9,19 @@ import TabBarExample from '../tabs/tabs';
 // import NoData from './NoData';
 // import PageNotFound from './PageNotFound';
 // import Redirect from './PageNotFound/redirect';
-const Demo = ()=>(
-	<div>
-		fdsaf
-	</div>
-)
+
 
 export const createRoutes = (store) => ({
   path: '/',
   component: CoreLayout,
   indexRoute: {component:TabBarExample},
-
-//   childRoutes: [
-//     Home
+  childRoutes: [
+	{
+		path:'login',
+		component:require('./login/login').default	
+	}
  
-//   ]
+  ]
 })
 
 export default createRoutes;

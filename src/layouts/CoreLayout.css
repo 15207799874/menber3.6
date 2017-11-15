@@ -1,0 +1,38 @@
+:global(.transitionWrapper-enter) {
+	opacity: 0.01;
+	/* left:500px; */
+    transition: all 0.3s linear;
+}
+ 
+:global(.transitionWrapper-enter.transitionWrapper-enter-active) {
+	/* left:0px; */
+    opacity: 1;
+}
+ 
+:global(.transitionWrapper-leave) {
+	opacity: 1;
+	/* left: 0px; */
+	transition: all 0.3s linear;
+	
+}
+ 
+:global(.transitionWrapper-leave.transitionWrapper-leave-active) {
+	/* left: -500px; */
+    opacity: 0;
+}
+ 
+.transitionWrapper {
+    position: relative;
+}
+
+.clearfix::after {
+	content: "";
+	height: 0;
+	line-height: 0;
+	display: block;
+	visibility: hidden;
+	clear: both;
+}
+.clearfix {
+	zoom:1;
+}
