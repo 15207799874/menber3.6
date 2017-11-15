@@ -262,6 +262,21 @@ class Home extends Component {
 				<div style={{ backgroundColor: '#E5E5E5', width: 4, height: 4, borderRadius:2, marginLeft: 12, }} />
 			</div>);
 	}
+	_onTabPress(item, index) {
+		if (this.state.selectTabIndex === index) {
+			return;
+		}
+		this.setState({
+			selectTabIndex: index
+		});
+		this.appModuleId = item.appModuleId;
+		this.moduleTabId = item.appModuleTabId;
+		this.sysOrgId = item.sysOrgId;
+		// console.log('>>>>>>>>list',this.refs.list);
+		this.refs.list.reloadData();
+		
+	}	
+
 	renderTabItem() {
 		let data = this.searchtabList('app_module_index_product');
 		if (data != null) {
@@ -274,12 +289,9 @@ class Home extends Component {
 					this.tabPressTextBg = { color: '#333' }
 				}
 				return (
-					<div style={{width:160,
-						height:52,
-						backgroundColor:'#2e0f50',
-						...style.flexHor,
-						borderRadius:26,
-						marginLeft:26,...this.tabPressBg}} key={index}>
+					<div style={{width:160,height:52,backgroundColor:'#2e0f50',...style.flexHor,borderRadius:26,marginLeft:26,...this.tabPressBg}} 
+						key={index}
+						onClick={() => { this._onTabPress(item, index) }}>
 						<div style={{ fontSize: 24,...this.tabPressTextBg}}>{item.tabNm}</div>
 					</div>
 				);
@@ -316,7 +328,7 @@ class Home extends Component {
 				{this.renderImageArr()}
 				{this.renderTitle()}
 				{this.renderTab()}
-				{this.sysOrgId && <HomeList  fetchData={this.fetchData} innerWidth={this.props.homeData.innerWidth}/>}
+				{this.sysOrgId && <HomeList ref="list"  fetchData={this.fetchData} innerWidth={this.props.homeData.innerWidth}/>}
 				<div style={{height:150}}></div>
 			</div>
 		);

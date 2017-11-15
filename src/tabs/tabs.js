@@ -34,8 +34,7 @@ class TabBarExample extends Component {
     );
   }
 
-  render() {
-	console.log('>>>>>>this.props.isLogin',this.props.isLogin);
+  render() {	
     return (
       <TabBar
         unselectedTintColor="#949494"

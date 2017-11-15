@@ -21,6 +21,7 @@ class HomeList extends React.Component {
 		height: document.documentElement.clientHeight * 3 / 4,	 
 		};
 		this.page = 0;
+		this.reloadData = this.reloadData.bind(this);
 	}
 
 	static propTypes = {
@@ -92,6 +93,10 @@ class HomeList extends React.Component {
 		this.setState({isLoading : 'loading'});	
 		this.page++;
 		this.onRefresh();		
+	}
+	reloadData() {
+		this.page = 0;
+		this.onRefresh();
 	}
 
 	componentDidMount() {
