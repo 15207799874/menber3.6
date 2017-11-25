@@ -10,7 +10,8 @@ import configureStore from './common/store/configure-store';
 import TabBarExample from './tabs/tabs';
 import registerServiceWorker from './registerServiceWorker';
 import AppContainer from './containers/AppContainer';
-import './index.css';
+// import './index.css'; 
+import './common.scss';
 
 const store = configureStore({Home:{innerWidth:window.innerWidth}});
 const routes = require('./routes/index').default(store)

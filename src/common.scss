@@ -1,0 +1,152 @@
+body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, li, a, p, h1, h2, h3, h4,h5, h6, i, b, textarea, button, input, select, figure, figcaption, {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-style: normal;
+    text-decoration: none;
+    border: none;
+    color: #333;
+    font-weight: normal;
+    font-family: "Microsoft Yahei";
+    box-sizing: border-box;
+    -webkit-tap-highlight-color:transparent;
+    -webkit-font-smoothing: antialiased;
+    &:hover{
+        outline: none;
+    }
+}
+
+input[type="button"], input[type="submit"], input[type="search"], input[type="reset"] {
+    -webkit-appearance: none;
+}
+
+textarea { -webkit-appearance: none;}   
+
+html,body{
+    height: 100%;
+    width: 100%;
+    background-color: #F5F5F5;
+}
+
+
+:global(.clear:after){
+    content: '';
+    display: block;
+    clear: both;
+}
+
+:global(.clear){
+    zoom:1;
+}
+
+:global(.back_img){
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+:global(.margin){
+    margin: 0 auto;
+}
+
+:global(.left){
+    float: left;
+}
+
+:global(.right){
+    float: right;
+}
+
+:global(.hide){
+    display: none;
+}
+
+:global(.show){
+    display: block;
+}
+
+:global(.ellipsis){
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+:global(.paddingTop){
+    padding-top: 1.95rem;
+}
+
+@keyframes backOpacity{
+   0%   { opacity: 1 }
+   25%  { opacity: .5 }
+   50%  { opacity: 1 }
+   75%  { opacity: .5 }
+   100% { opacity: 1 }
+}
+
+:global(.animation_opactiy){
+    animation: backOpacity 2s ease-in-out infinite;
+}
+
+
+
+
+
+
+  
+  :global(.flexHor-center) {
+      display:flex;
+      flex-direction:row;
+      justify-content:center;
+      align-items:center;	
+  }
+  :global(.flexHor-jc-as) {
+      display:flex;	
+      flex-direction:row;
+      justify-content:center;
+      align-items:flex-start;	
+  }
+  :global(.flexHor-js-ac) {
+      display:flex;	
+      flex-direction:row;
+      justify-content:flex-start;
+      align-items:center;	
+  }
+  :global(.flexVer-center) {
+      display:flex;	
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;	
+  }
+  :global(.flexVer-js-ac) {
+      display:flex;	
+      flex-direction:column;
+      justify-content:flex-start;
+      align-items:center;	
+  }
+  :global(.flexVer-jc-as) {
+      display:flex;	
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;	
+  }
+  
+  :global(.clearfix::after) {
+      content: "";
+      height: 0;
+      line-height: 0;
+      display: block;
+      visibility: hidden;
+      clear: both;
+  }
+  :global(.clearfix) {
+      zoom:1;
+  }
+  :global(.text-center) {	
+      text-align: center;	  
+  }
+  :global(.container) {		 
+      text-align: center;
+      margin:auto;
+      color: 'red';
+  }
+  
+  

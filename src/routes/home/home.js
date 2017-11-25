@@ -32,6 +32,7 @@ class Home extends Component {
 	}
 	componentWillMount(){
 		window.onresize=function(){
+			// document.body.style.fontSize =
 			this.props.actions.resizeWindow()
 		}.bind(this);
 

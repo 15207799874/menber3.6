@@ -142,15 +142,16 @@ module.exports = {
       {
         exclude: [
           /\.html$/,
-		  /\.(js|jsx)$/,
-		  /\.less$/,		 
+		      /\.(js|jsx)$/,
+		      /\.less$/,		 
+		      /\.scss$/,		 
           /\.css$/,
           /\.json$/,
           /\.bmp$/,
           /\.gif$/,
           /\.jpe?g$/,
-		  /\.png$/,		 
-		  require.resolve('antd-mobile').replace(/warn\.js$/, ''),
+	   	    /\.png$/,		 
+		      require.resolve('antd-mobile').replace(/warn\.js$/, ''),
         ],
         loader: require.resolve('file-loader'),
         options: {
@@ -195,9 +196,9 @@ module.exports = {
           {
             loader: require.resolve('css-loader'),
             options: {
-				modules: true,
-				localIdentName: '[path][name]__[local]--[hash:base64:5]',
-				importLoaders: 1,
+            modules: true,
+            localIdentName: '[path][name]__[local]--[hash:base64:5]',
+            importLoaders: 1,
             },
           },
           {
@@ -250,7 +251,45 @@ module.exports = {
             },
           },
         ],
-	  },
+    },
+    {
+      test: /\.scss$/,
+      use: [
+        require.resolve('style-loader'),
+        {
+          loader: require.resolve('css-loader'),
+          options: {
+          modules: true,
+          localIdentName: '[path][name]__[local]--[hash:base64:5]',
+          importLoaders: 1,
+          },
+        },
+        {
+          loader: require.resolve('postcss-loader'),
+          options: {
+            ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+            plugins: () => [
+              require('postcss-flexbugs-fixes'),
+              autoprefixer({
+                browsers: [
+                  '>1%',
+                  'last 4 versions',
+                  'Firefox ESR',
+                  'not ie < 9', // React doesn't support IE8 anyway
+                ],
+                flexbox: 'no-2009',
+              }),
+            ],
+          },
+        },
+        {
+          loader: require.resolve('sass-loader'),
+          options: {
+             modifyVars: { },
+          },
+        },
+      ],
+  },
 	{
 		test: /\.svg$/,
 		loader: 'svg-sprite-loader',
