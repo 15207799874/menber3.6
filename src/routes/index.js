@@ -19,6 +19,10 @@ export const createRoutes = (store) => ({
 	{
 		path:'login',
 		component:require('./login/login').default	
+	},
+	{
+		path:'category',
+		component:require('./category/category').default	
 	}
  
   ]

@@ -12,6 +12,7 @@ import registerServiceWorker from './registerServiceWorker';
 import AppContainer from './containers/AppContainer';
 // import './index.css'; 
 import './common.scss';
+window.document.documentElement.style.fontSize = window.innerWidth / 640 * 100 + 'px';
 
 const store = configureStore({Home:{innerWidth:window.innerWidth}});
 const routes = require('./routes/index').default(store)

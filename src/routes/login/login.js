@@ -206,13 +206,13 @@ class Login extends Component {
 			onLeftClick={()=>{browserHistory.goBack()}}
 			>登录</NavBar>
 		<input type="text" 
-			style={{backgroundColor:"#f5f5f5",marginTop:50,width:"80%",height:100,borderWidth:0,borderBottomWidth:3,orderBottomColor:"#e5e5e5"}}
+			style={{backgroundColor:"#f5f5f5",marginTop:50,width:"80%",height:100,border:0,borderBottomWidth:2,borderBottomColor:"blue",borderStyle:'solid'}}
 			placeholder="用户名／手机号／邮箱" 
 			value={this.state.inputUser}
 			onChange={(e)=>{this.setState({inputUser:e.target.value})}}
 			/>
 		<input type="text" 
-			style={{backgroundColor:"#f5f5f5",marginTop:50,width:"80%",height:100,borderWidth:0,borderBottomWidth:3,borderBottomColor:"#e5e5e5"}}
+			style={{backgroundColor:"#f5f5f5",marginTop:50,width:"80%",height:100,border:0,borderBottomWidth:2,borderBottomColor:"blue",borderStyle:'solid'}}
 			placeholder="密码" 
 			value={this.state.inputPassword}
 			onChange={(e)=>{this.setState({inputPassword:e.target.value})}}

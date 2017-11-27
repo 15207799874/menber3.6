@@ -11,6 +11,7 @@ import * as userActions from '../login/redux/MemberAction';
 import NoticeBanner from 'app/common/component/noticeBannar';
 // import ScrollArea from 'react-scrollbar';
 import HomeList from './List'
+import { browserHistory } from 'react-router'
 
 
 class Home extends Component {
@@ -315,7 +316,10 @@ class Home extends Component {
 			<div> 	 	
 				<div style={{position:"fixed",top:0,width:'100%',zIndex:100,}}>
 					<div className='flexHor-center' style={{backgroundColor:"#fff",justifyContent:'space-between',height:90,paddingLeft:26,paddingRight:26}}>	
-						<span><i className="fa fa-th-list" style={{fontSize:36,color:"#34457d"}}></i></span>		
+						<i className="fa fa-th-list" style={{fontSize:36,color:"#34457d"}}
+							onClick={()=>{
+								browserHistory.push('/category')
+							}}></i>		
 						<span style={{display:"inline-block",width:"70%",height:60, backgroundColor:"#f5f5f5",borderRadius:30,...style.flexHor}}>
 							<span style={{color:"#333",margin:"auto",display:'flex',flexDirection:'row',alignItems:'center'}}><Icon key="0" type="search"/>搜索商品／品牌</span>					
 						</span>			

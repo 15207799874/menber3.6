@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TabBar, Icon } from 'antd-mobile';
 import Home from '../routes/home/home';
 import FastBuy from '../routes/fastBuy/fastBuy';
+import My from '../routes/login/my';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router'
 
@@ -124,7 +125,7 @@ class TabBarExample extends Component {
             });
           }}
         >
-          {this.renderContent('我的')}
+			<My></My>
         </TabBar.Item>
       </TabBar>
     );
