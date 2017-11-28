@@ -78,6 +78,8 @@ module.exports = {
       path.resolve(info.absoluteResourcePath),
   },
   resolve: {
+	// modulesDirectories: ['node_modules', path.join(__dirname, '../node_modules')],
+	
     // This allows you to set a fallback for where Webpack should look for modules.
     // We placed these paths second because we want `node_modules` to "win"
     // if there are any conflicts. This matches Node resolution mechanism.
@@ -141,17 +143,17 @@ module.exports = {
       // In production, they would get copied to the `build` folder.
       {
         exclude: [
-          /\.html$/,
-		      /\.(js|jsx)$/,
-		      /\.less$/,		 
-		      /\.scss$/,		 
-          /\.css$/,
-          /\.json$/,
-          /\.bmp$/,
-          /\.gif$/,
-          /\.jpe?g$/,
-	   	    /\.png$/,		 
-		      require.resolve('antd-mobile').replace(/warn\.js$/, ''),
+			/\.html$/,
+			/\.(js|jsx)$/,
+			/\.less$/,		 
+			/\.scss$/,		 
+			/\.css$/,
+			/\.json$/,
+			/\.bmp$/,
+			/\.gif$/,
+			/\.jpe?g$/,
+			/\.png$/,		 
+			require.resolve('antd-mobile').replace(/warn\.js$/, ''),
         ],
         loader: require.resolve('file-loader'),
         options: {
@@ -261,7 +263,7 @@ module.exports = {
           options: {
           modules: true,
           localIdentName: '[path][name]__[local]--[hash:base64:5]',
-          importLoaders: 1,
+          importLoaders: 2,
           },
         },
         {
@@ -283,10 +285,7 @@ module.exports = {
           },
         },
         {
-          loader: require.resolve('sass-loader'),
-          options: {
-             modifyVars: { },
-          },
+          loader: require.resolve('sass-loader'), 
         },
       ],
   },

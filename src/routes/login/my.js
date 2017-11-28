@@ -102,7 +102,7 @@ class fastBuy extends Component {
 						<span>反馈中心</span>
 					</div>
 					<i className="fa fa-hand-o-right"></i>
-				</div>
+				</div>			
 				<div className={styles.footer}></div>
 			</div>	
 		);

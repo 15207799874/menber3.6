@@ -124,8 +124,10 @@ class HomeList extends React.Component {
 		let leftPrice = Number.parseFloat(price).toFixed(2).toString().split('.');
 	
 		return (
-			<div key={rowID} style={{...style.flexVer,justifyContent:'space-between', width:this.props.innerWidth/2-50,marginLeft:rowID%2 != 0 ? 98 : 0,display:'inline-block'}}>
-				<img  style={{width:this.props.innerWidth/2-80}} src={rowData.product.picUrl}/>    					
+			<div key={rowID} style={{width:this.props.innerWidth/2-2,display:'inline-block'}}>
+				<div style={{...style.flexHor}}>
+					<img  style={{width:this.props.innerWidth/2-80,margin:'auto'}} src={rowData.product.picUrl}/> 
+				</div>
 				<div style={{height:185,...style.flexVer,justifyContent:'space-around',paddingLeft:30,alignItems:'flex-start'}}>
 					{
 					rowData.product.price == null ?
@@ -138,8 +140,7 @@ class HomeList extends React.Component {
 					}
 					<span style={{ color: '#333', fontSize: 26,  }} >{rowData.text}</span>
 					<span style={{ color: '#333', fontSize: 26,  }} >{rowData.product.specPack}</span>
-				</div>					
-			
+				</div>
 			</div>
 		)
 	}

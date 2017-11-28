@@ -157,9 +157,9 @@ class Home extends Component {
 			<div style={{paddingTop:25,paddingBottom:50, backgroundColor:"#f5f5f5",display:'flex',flexWrap:'wrap',justifyContent:'flex-start'}}>
 				{data.map((item,i)=>{
 					return(
-						<div key={i} style={{marginTop:25, paddingLeft:40,paddingRight:40,...style.flexVer}}>
+						<div key={i} style={{marginTop:25, width:this.props.homeData.innerWidth/4-.5,...style.flexVer}}>
 							<div><img src={item.iconFileUrl} alt="" height='100' width='100'/></div>
-							<div>{item.text}</div>
+							<span>{item.text}</span>
 						</div>
 					)
 				})}
@@ -310,6 +310,17 @@ class Home extends Component {
         
 		)
 	}
+
+	headRightBtn(){
+		if(this.props.isLogin){
+			browserHistory.push('/messagecenter')
+		}else{
+			browserHistory.push('/login')
+		}
+	}
+	searchBtn(){		
+		browserHistory.push('/search')
+	}
 	
   	render() {
 		return (
@@ -320,10 +331,12 @@ class Home extends Component {
 							onClick={()=>{
 								browserHistory.push('/category')
 							}}></i>		
-						<span style={{display:"inline-block",width:"70%",height:60, backgroundColor:"#f5f5f5",borderRadius:30,...style.flexHor}}>
+						<span style={{display:"inline-block",width:"70%",height:60, backgroundColor:"#f5f5f5",borderRadius:30,...style.flexHor}}
+							onClick={this.searchBtn.bind(this)}>
 							<span style={{color:"#333",margin:"auto",display:'flex',flexDirection:'row',alignItems:'center'}}><Icon key="0" type="search"/>搜索商品／品牌</span>					
 						</span>			
-						<Icon key="1" type="ellipsis" style={{color:"#34457d"}}/>
+						<i className={"fa fa-bell "} style={{fontSize:36,color:"#34457d" }}
+							onClick={this.headRightBtn.bind(this)}></i>	
 					</div>
 				</div>
 				<div style={{height:90}}></div>

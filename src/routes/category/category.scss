@@ -1,0 +1,33 @@
+@import '../../mixin.scss';
+
+.navName {
+	font-weight: bold;
+}
+.bodyContainer{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	border-top: 2px solid #e5e5e5;
+}
+.items{
+	background-color: white;
+	width: 3.2rem;	
+	.itemSub{
+		@include flexVer;
+		height: 3.2rem;
+		.img{
+			width: 1.2rem;
+			height: 1.2rem;
+		}
+		.name{
+			font-size: .28rem;
+			color: '#0c1828';
+			padding-top: 0.28rem;
+		}
+		.describe{
+			font-size: .20rem;
+			color: '#8495a2';
+			padding-top: 0.18rem;
+		}
+	}
+}

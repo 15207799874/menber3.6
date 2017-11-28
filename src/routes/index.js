@@ -23,6 +23,14 @@ export const createRoutes = (store) => ({
 	{
 		path:'category',
 		component:require('./category/category').default	
+	},
+	{
+		path:'messageCenter',
+		component:require('./login/messageCenter').default	
+	},
+	{
+		path:'search',
+		component:require('./category/search').default	
 	}
  
   ]
