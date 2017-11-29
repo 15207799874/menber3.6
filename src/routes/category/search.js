@@ -4,6 +4,7 @@ import styles from './search.scss';
 import Fetch from 'app/common/lib/Fetch'
 import { browserHistory } from 'react-router'
 
+
 class search extends Component {
 	constructor(props) {
 		super(props);	

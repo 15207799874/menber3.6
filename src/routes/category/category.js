@@ -4,6 +4,35 @@ import styles from './category.scss';
 import Fetch from 'app/common/lib/Fetch'
 import { browserHistory } from 'react-router'
 
+import Menu from 'antd/lib/menu'; 
+import 'antd/lib/menu/style';  
+import Dropdown from 'antd/lib/dropdown'; 
+import 'antd/lib/dropdown/style';  
+
+const menu = (
+	<Menu>
+	  <Menu.Item key="0">
+		 <i className="fa fa-home" aria-hidden="true" style={{fontSize:32}}/>
+		 <span className={styles.menuName}>首页</span>
+	  </Menu.Item>
+	  <Menu.Divider />
+	  <Menu.Item key="1">
+	  		<i className="fa fa-search" aria-hidden="true" style={{fontSize:32}}></i>
+	 	 <span className={styles.menuName}>搜索</span>
+	  </Menu.Item>
+	  <Menu.Divider />
+	  <Menu.Item key="3" disabled>
+	 	 <i className="fa fa-bell-o" aria-hidden="true" style={{fontSize:32}}></i>
+	  	 <span className={styles.menuName}>消息</span>
+	  </Menu.Item>
+	  <Menu.Divider />
+	  <Menu.Item key="4" disabled>
+	 	 <i className="fa fa-user-o" aria-hidden="true" style={{fontSize:32}}></i>
+	  	 <span className={styles.menuName}>我的</span>
+	  </Menu.Item>
+	</Menu>
+  );
+
 class fastBuy extends Component {
 	constructor(props) {
 		super(props);
@@ -74,7 +103,7 @@ class fastBuy extends Component {
 		// );
 		// return content;
 
-	}
+	}		  
 
 	render() {
 		return (
@@ -82,7 +111,11 @@ class fastBuy extends Component {
 				<NavBar	mode="light"
 					style={{width:"100%"}}
 					onLeftClick={()=>{browserHistory.goBack()}}
-					rightContent={ <Icon key="1" type="ellipsis" />}
+					rightContent={ 
+						<Dropdown overlay={menu} placement='bottomRight'>	
+							<Icon key="1" type="ellipsis" />
+						</Dropdown>	
+						}
 				><span className={styles.navName}>全部分类</span></NavBar>
 				<div className={styles.bodyContainer} >
 					{this.renderRow(this.state.data)}

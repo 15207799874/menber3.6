@@ -1,0 +1,45 @@
+@import '../../mixin.scss';
+
+.headBar{
+	@include flexHor(space-between,center);
+	background-color: #373791;
+	height: 90px;	
+	.title{	
+		color: white;
+		font-weight: bold;
+	}
+	.plus{
+		color: white;	
+		margin-right: 26px;		
+	}
+	.left{
+		color: transparent;	
+		margin-left: 26px;	
+	}
+}
+.searchBg{
+	@include flexHor(center,flex-start);
+	background-color: #373791;
+	height: 90px;	
+	.searchBar{
+		@include flexHor;
+		background-color: white;
+		width: 90%;
+		height: 60px;
+		border-radius: 10px;
+		font-size: 28px;
+		color: #333;
+	}
+}
+.p1{
+	margin-top: 50px;
+	text-align: center;
+	font-size: 28px;
+	color: #333;
+}
+.p2{
+	margin-top: 50px;
+	text-align: center;
+	font-size: 26px;
+	color: #333;
+}

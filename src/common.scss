@@ -27,7 +27,9 @@ html,body{
     width: 100%;
 	background-color: #F5F5F5;	
 }
-
+body {
+	font-size: 32px !important;
+}
 
 :global(.clear:after){
     content: '';
