@@ -101,9 +101,11 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": {
-    "/app": {
-      "target": "http://www.etaoyao.com"
-    }
-  }
+  "proxy":{
+	"/app":{
+		"target":"http://www.etaoyao.com",
+		"changeOrigin": true,			
+		"secure": false
+	}
+}
 }

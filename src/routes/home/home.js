@@ -178,13 +178,11 @@ class Home extends Component {
 			});
 		}
 		return(
-			<WingBlank>
-				<div style={{height:56,backgroundColor:"#fff",borderRadius:28,...style.flexHor,justifyContent:'space-between',paddingRight:20}}>
-					<span>
-						<span style={{fontSize:26,paddingLeft:20}}>电商</span>
-						<span style={{display:"inline-block",height:30,width:60,fontSize:26, backgroundImage: `url(${process.env.PUBLIC_URL}/001zixundi@2x.png)`}}>资讯
-						</span>
-					</span>
+			<div style={{paddingLeft:13,paddingRight:13}}>
+				<div style={{height:56,backgroundColor:"#fff",borderRadius:28,...style.flexHor,justifyContent:'space-between',paddingRight:20}}>					
+					<span style={{fontSize:26,paddingLeft:20}}>电商</span>
+					<div style={{height:30,width:60,fontSize:26,color:'#fff',...style.flexHor,backgroundImage: `url(${process.env.PUBLIC_URL}/001zixundi@2x.png)`}}>资讯
+					</div>					
 					<NoticeBanner						
 						textStyle={{fontSize: 26, marginLeft: 5,position:'relative',flex:1,whiteSpace: 'nowrap',overflow:'hidden', textOverflow:'ellipsis'}}
 						pressActions={(Value) => { }}
@@ -192,9 +190,10 @@ class Home extends Component {
 						num={3}
 					></NoticeBanner>
 					<div style={{height:28,widtg:1, border:'1px solid #eee',marginRight: 20}}/>
-					<span>更多</span>
-				</div>
-			</WingBlank>
+					<span style={{fontSize:26}}>更多</span>
+				</div>				
+			</div>
+			
 		)
 	}
 
@@ -229,7 +228,7 @@ class Home extends Component {
 		if (left != null) {
 			return left.map((item, index) => {
 				return (
-					<div style={{...style.flexHor,marginTop:20,height:this.props.homeData.innerWidth*0.6875,backgroundColor:'#fff',}} key={index}>	
+					<div style={{marginTop:20, ...style.flexHor,height:this.props.homeData.innerWidth*0.6875,}} key={index}>	
 						<img
 							style={{width:this.props.homeData.innerWidth * 0.34375,height:this.props.homeData.innerWidth*0.6875,border:'1px solid #eee'}}
 							src={item.iconFileUrl}
@@ -254,7 +253,7 @@ class Home extends Component {
 	}
 	renderTitle() {
 		return (
-			<div style={{height:100,...style.flexHor,backgroundColor:'#fff',	marginTop:20}}>
+			<div style={{height:100,...style.flexHor,backgroundColor:'#fff',marginTop:20}}>
 				<div style={{ backgroundColor: '#E5E5E5', width: 4, height: 4, borderRadius: 2, marginRight: 12, }} />
 				<div style={{ backgroundColor: '#666', width: 6, height: 6, borderRadius: 3, marginRight: 12, }} />
 				<div style={{ backgroundColor: '#999', width: 8, height: 8, borderRadius: 4, marginRight: 12, }} />
@@ -324,7 +323,7 @@ class Home extends Component {
 	
   	render() {
 		return (
-			<div> 	 	
+			<div style={{backgroundColor:"#f5f5f5"}}> 	 	
 				<div style={{position:"fixed",top:0,width:'100%',zIndex:100,}}>
 					<div className='flexHor-center' style={{backgroundColor:"#fff",justifyContent:'space-between',height:90,paddingLeft:26,paddingRight:26}}>	
 						<i className="fa fa-th-list" style={{fontSize:36,color:"#34457d"}}
